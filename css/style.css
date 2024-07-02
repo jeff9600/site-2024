@@ -1,0 +1,319 @@
+/* Réinitialisation de base et styles globaux */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+    width: 100%; /* Assure que .container utilise toute la largeur disponible */
+}
+
+.logo {
+    color: #683688;
+    text-decoration: none;
+}
+
+/* Ajustements pour le logo pour assurer l'alignement vertical */
+.logo img {
+    height: 100px; /* Ajustez selon la taille de votre logo */
+    vertical-align: middle;
+}
+
+header {
+    background: #683688;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 100%; /* Assure que le header utilise toute la largeur */
+}
+
+/* Assurez-vous que la nav utilise display: flex; pour un alignement facile */
+nav {
+    display: flex;
+    align-items: center; /* Cette propriété aligne verticalement les enfants */
+    justify-content: space-between; /* Répartit l'espace horizontalement */
+}
+
+/* Style spécifique pour les liens de la navbar pour assurer l'uniformité */
+nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0; /* Supprime les marges par défaut */
+    align-items: center; /* Alignement vertical des éléments de la liste */
+}
+
+nav ul li a {
+    position: relative; /* Nécessaire pour positionner les pseudo-éléments */
+    padding: 10px 15px; /* Ajustez selon vos préférences */
+    color: #fff; /* Couleur du texte */
+    text-decoration: none; /* Enlève le soulignement par défaut */
+    display: inline-block; /* Permet l'application de padding et margin */
+    overflow: hidden; /* Garde les pseudo-éléments à l'intérieur des limites de l'élément a */
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+nav ul li a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Correspond à la largeur du lien */
+    height: 2px; /* Épaisseur de la bordure animée */
+    background-color: #ff8b2c; /* Couleur de la bordure */
+    transform: translateX(-100%); /* Démarre à gauche, en dehors de la vue */
+    transition: transform 0.3s ease-in-out; /* Animation douce */
+}
+
+nav ul li a:hover::before {
+    transform: translateX(0%); /* Déplace la bordure vers la droite, la rendant visible */
+}
+
+nav ul li a, .cta-nav {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a, .cta-nav {
+    padding: 10px 15px; /* Ajustez le padding selon vos besoins */
+    border-radius: 5px; /* Adaptez le rayon de bordure selon le design */
+    text-decoration: none; /* Supprime le soulignement par défaut des liens */
+    display: flex;
+    align-items: center; /* Assure un alignement vertical correct */
+    height: 100%; /* Assure que les éléments aient la même hauteur */
+}
+
+.cta, .cta-nav {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: color 0.3s;
+    color: #fff;
+    background-color: #eb5f22;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.cta::after, .cta-nav::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #ff8b2c; /* Une couleur contrastante pour l'effet hover */
+    border-radius: 5px;
+    transition: all 0.4s;
+    transform: scale(0);
+    opacity: 0;
+}
+
+.cta:hover::after, .cta-nav:hover::after {
+    transform: scale(2);
+    opacity: 1;
+}
+
+.cta:hover, .cta-nav:hover {
+    color: #ffffff; /* Change la couleur du texte pour contraster avec le fond */
+}
+
+/* Style initial pour la navigation (cachée sur mobile) */
+nav ul {
+    display: flex; /* Affichage en ligne pour desktop */
+    flex-direction: row; /* Orientation horizontale pour desktop */
+    position: relative; /* Position relative pour desktop */
+    transition: transform 0.3s ease; /* Transition pour l'effet de glissement */
+}
+
+/* Initialiser la visibilité du menu sur desktop */
+nav ul.is-active, nav ul {
+    transform: translateX(0%); /* S'assurer que le menu est visible par défaut */
+}
+
+.burger-menu {
+    background: none;
+    border: none;
+    color: #fff; /* Adaptez la couleur à votre design */
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.burger-menu span {
+    display: block; /* Assure que les icônes ne soient pas sur la même ligne */
+}
+
+/* Masquer les icônes du burger et de la croix en mode desktop */
+.burger-menu .fa-bars, .burger-menu .fa-times {
+    display: none; /* Masqués par défaut */
+}
+
+/* Adapter la visibilité pour les appareils mobiles */
+@media (max-width: 768px) {
+    .burger-menu .fa-bars, .burger-menu .fa-times {
+        display: block; /* Afficher les icônes sur mobile */
+    }
+    .burger-menu .fa-times {
+        display: none; /* La croix reste cachée tant que le menu n'est pas activé */
+    }
+    /* Lorsque le menu est actif, afficher la croix et masquer l'icône du burger */
+    .is-active .fa-bars {
+        display: none;
+    }
+    .is-active .fa-times {
+        display: block;
+    }
+
+    nav ul li:last-child {
+        margin-left: 0;
+    }
+    
+
+    nav ul {
+        display: none; /* Initial, caché sur mobile */
+        flex-direction: column; /* Pour le menu déroulant vertical */
+        position: absolute;
+        left: 0;
+        right: 0;
+        background-color: #683688; /* Couleur de fond du menu mobile */
+        padding-top: 0px; /* Espace au-dessus des liens du menu */
+        padding-bottom: 20px; /* Ajouter du padding au bas du menu pour augmenter l'espace */
+    }
+
+     /* Assurez que tous les éléments li aient une largeur spécifique et soient centrés */
+     nav ul li a {
+        display: block; /* Conservez le bloc pour un contrôle facile du padding et de la marge */
+        width: auto; /* Permet aux liens de s'ajuster à leur contenu */
+        margin: 10px auto; /* Centrage horizontal des liens */
+        padding: 5px 5px; /* Padding pour les liens, ajustez selon les besoins */
+    }
+
+    .cta-nav {
+        display: block; /* Rendre le lien comme un bloc pour permettre le centrage */
+        text-align: center; /* Centrer le texte du lien */
+        width: 100%; /* Assure que le lien occupe toute la largeur disponible */
+        padding: 10px 0; /* Ajuster le padding pour augmenter l'espace vertical */
+    }
+
+    nav ul li {
+        text-align: center; /* Centrer les liens dans le menu mobile */
+        padding: 5px 0; /* Espacement vertical pour chaque lien */
+    }
+
+    /* Augmenter la marge inférieure du dernier élément de la liste */
+    nav ul li:last-child {
+        margin-bottom: 20px; /* Augmenter l'espace au bas du menu */
+    }
+
+    nav ul.is-active {
+        display: flex; /* Afficher le menu en mode mobile lorsque activé */
+    }
+    
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centre les éléments dans le container */
+    }
+
+    .logo img {
+        height: 40px; /* Réduire la taille du logo sur mobile */
+        margin-bottom: 10px; /* Ajouter un espace en dessous du logo */
+    }
+
+    .burger-menu {
+        position: absolute;
+        right: 20px; /* Position à droite */
+        top: 20px; /* Ajuster en fonction de la hauteur de votre en-tête */
+    }
+
+    header {
+        position: relative; /* S'assurer que le header est relatif pour positionner correctement le burger-menu */
+        padding: 20px 0; /* Ajuster l'espacement autour du header */
+    }
+
+    nav ul {
+        top: 100%; /* Positionner le menu directement sous le header */
+    }
+
+    .cta-nav {
+        display: inline-block; /* Permet au bouton de ne pas prendre toute la largeur */
+        margin: 0 auto; /* Centrage horizontal */
+        padding: 10px 20px; /* Ajuster le padding selon le design souhaité */
+        width: auto; /* Permettre au bouton d'ajuster sa largeur au contenu */
+        text-align: center; /* Centrer le texte à l'intérieur du bouton */
+    }
+}
+
+/* Assurez-vous que le logo est correctement aligné et dimensionné */
+.logo img {
+    height: 100px;
+    vertical-align: middle;
+}
+
+
+.cta-nav {
+    background-color: #eb5f22; /* Couleur secondaire pour le CTA dans la navbar */
+    margin-left: 20px; /* Ajoute un peu d'espace entre les éléments de navigation et le CTA */
+    white-space: nowrap; /* Empêche le texte de passer à la ligne */
+}
+
+#hero {
+    text-align: center;
+    padding: 100px 20px;
+    margin-top: 60px; /* Espacement pour éviter le chevauchement avec le header fixe */
+}
+
+#hero .cta {
+    margin-top: 20px; /* Espacement ajouté entre le texte et le CTA */
+    background-color: #eb5f22;
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+footer {
+    background: #683688;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    position: relative; /* Assure que le footer est au bas du contenu sans être fixé */
+    clear: both; /* Assure qu'il n'est pas affecté par le flottement d'autres éléments */
+}
